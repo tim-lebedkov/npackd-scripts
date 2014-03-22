@@ -1,3 +1,5 @@
 syntax: regexp
 ^build-packages/QuaZIP-static-x86_64-w32-0.6.2/
 ^build-packages/zlib32static/
+^build-packages/quazip-dev-i686-w64-static-0.6.2/
+^build-packages/quazip-dev-x86_64-w64-static-0.6.2/
