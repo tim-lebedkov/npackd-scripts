@@ -1,3 +1,7 @@
+var arguments = WScript.Arguments; 
+var password = arguments.Named.Item("password");
+WScript.Echo("password=" + password);
+
 //var npackdcl = "C:\\ProgramFiles\\NpackdCL\\npackdcl.exe";
 //var npackdcl = "C:\\Program Files\\NpackdCL\\npackdcl.exe";
 var npackdcl = "C:\\ProgramFiles\\NpackdCL-1.19.13\\npackdcl.exe";
@@ -95,8 +99,6 @@ if (ec !== 0) {
     WScript.Echo("npackdcl.exe detect failed: " + ec);
     WScript.Quit(1);
 }
-
-var password = WScript.Arguments.Item("password");
 
 var xDoc = new ActiveXObject("MSXML2.DOMDocument.6.0");
 xDoc.async = false;
