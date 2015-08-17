@@ -13,6 +13,6 @@ set zlib=C:\windows-package-manager.npackd-scripts\build-packages\zlib32static
 
 set path=%mingww64%\bin
 cd %name%
-%qt%\qtbase\bin\qmake.exe CONFIG+=staticlib CONFIG+=release
+%qt%\qtbase\bin\qmake.exe CONFIG+=staticlib CONFIG+=release DEFINES+=QUAZIP_STATIC
 "%mingww64%\bin\mingw32-make.exe"
 

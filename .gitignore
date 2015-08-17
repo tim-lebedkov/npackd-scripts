@@ -5,3 +5,4 @@ build-packages/xapian-dev-x86_64-w64-1.2.18/*
 build-packages/zlib32static/*
 build-packages/quazip-dev-i686-w64-static-0.7.1/*
 build-packages/QuaZIP-static-x86_64-w32-0.7.1/*
+build-packages/quazip-dev-x86_64-w64-static-0.7.1_/*
