@@ -162,6 +162,8 @@ function process() {
                 "com.nokia.QtDev-i686-w64-Npackd-Release-5.5\\qtbase\\" +
                 "bin\\qmake.exe " +
                 "CONFIG+=staticlib CONFIG+=release DEFINES+=QUAZIP_STATIC");
+        execSafe("set path=" + mingw + 
+                "\\bin&&cd build&&mingw32-make");
     } else {
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build&&mingw32-make -f win32\\Makefile.gcc");
