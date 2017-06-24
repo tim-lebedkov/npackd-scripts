@@ -152,8 +152,8 @@ function process() {
     execSafe("set path=" + mingw + 
             "\\bin&&cd build&&mingw32-make -f win32\\Makefile.gcc");
     
-    execSafe("\"" + sevenzip + "\\7z\" a ..\\" + package_ + "-" + version + 
-            ".zip * -mx9");
+    execSafe("\"" + sevenzip + "\\7z\" a " + package_ + "-" + version + 
+            ".zip .\build\* -mx9");
     
     execSafe("appveyor PushArtifact " + package_ + "-" + version + ".zip");
 }
