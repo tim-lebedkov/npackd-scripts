@@ -28,12 +28,12 @@ function shuffle(array) {
 }
 
 function exec(cmd) {
-    var result = exec2("cmd.exe /c /s \"" + cmd + "\" 2>&1");
+    var result = exec2("cmd.exe /s /c \"" + cmd + " 2>&1\"");
     return result[0];
 }
 
 function execSafe(cmd) {
-    var result = exec2("cmd.exe /c /s \"" + cmd + "\" 2>&1");
+    var result = exec2("cmd.exe /s /c \"" + cmd + " 2>&1\"");
     var ec = result[0];
     if (ec !== 0)
         throw new Error(cmd + " failed with the exit code " + ec);
@@ -62,8 +62,8 @@ function getPath(npackdcl, package_, version) {
  * @return path to the specified package or "" if not installed
  */
 function getPathR(npackdcl, package_, versions) {
-    var res = exec2("cmd.exe /c /s \"\"" + npackdcl + "\" path " +
-            " -r \"" + versions + "\" -p " + package_ + "\" 2>&1");
+    var res = exec2("cmd.exe /s /c \"\"" + npackdcl + "\" path " +
+            " -r \"" + versions + "\" -p " + package_ + " 2>&1\"");
     var lines = res[1];
     if (lines.length > 0)
         return lines[0];
