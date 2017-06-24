@@ -151,22 +151,32 @@ function process() {
     execSafe("\"" + npackdcl + "\" add -p " + source + " -v " + version);
     
     var sourced = getPath(npackdcl, source, version);
-    execSafe("xcopy \"" + sourced + "\" build /E /I /Q");
+
+    execSafe("mkdir build");
+    execSafe("mkdir build\\bin");
+    execSafe("mkdir build\\include");
+    execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
 
     if (package_ === "quazip-dev-i686-w64_4.9.2-static") {
         execSafe("\"" + npackdcl + 
                 "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v 5.5");
         execSafe("set path=" + mingw + 
-                "\\bin&&cd build&&" +
+                "\\bin&&cd build\\src&&" +
                 "C:\\NpackdSymlinks\\" +
                 "com.nokia.QtDev-i686-w64-Npackd-Release-5.5\\qtbase\\" +
                 "bin\\qmake.exe " +
                 "CONFIG+=staticlib CONFIG+=release DEFINES+=QUAZIP_STATIC");
         execSafe("set path=" + mingw + 
-                "\\bin&&cd build&&mingw32-make");
+                "\\bin&&cd build\\src&&mingw32-make");
+                
+        execSafe("copy build\\src\\quazip\\release\\libquazip.a build\\bin");
+        execSafe("copy build\\src\\quazip\\*.h build\\include");
     } else {
         execSafe("set path=" + mingw + 
-                "\\bin&&cd build&&mingw32-make -f win32\\Makefile.gcc");
+                "\\bin&&cd build\\src&&mingw32-make -f win32\\Makefile.gcc");
+                
+        execSafe("copy build\\src\\libz.a build\\bin");
+        execSafe("copy build\\src\\*.h build\\include");
     }
     
     execSafe("\"" + sevenzip + "\\7z\" a " + package_ + "-" + version + 
