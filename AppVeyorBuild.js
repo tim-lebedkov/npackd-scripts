@@ -129,7 +129,7 @@ function compareVersions(a, b) {
 function process() {
     var arguments = WScript.Arguments;
     var WshShell = WScript.CreateObject("WScript.Shell");
-    var WshSysEnv = WshShell.Environment("SYSTEM");
+    var WshSysEnv = WshShell.Environment("Process");
 
     var package_ = WshSysEnv("PACKAGE");
     var version = WshSysEnv("VERSION");
