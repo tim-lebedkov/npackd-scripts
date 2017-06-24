@@ -62,8 +62,8 @@ function getPath(npackdcl, package_, version) {
  * @return path to the specified package or "" if not installed
  */
 function getPathR(npackdcl, package_, versions) {
-    var res = exec2("cmd.exe /c \"" + npackdcl + "\" path -p " + package_ +
-            " -r \"" + versions + "\" 2>&1");
+    var res = exec2("cmd.exe /c \"" + npackdcl + "\" path " +
+            " -r \"" + versions + "\" -p " + package_ + " 2>&1");
     var lines = res[1];
     if (lines.length > 0)
         return lines[0];
@@ -78,6 +78,7 @@ function getPathR(npackdcl, package_, versions) {
  * @return [exit code, [output line 1, output line2, ...]]
  */
 function exec2(cmd) {
+    WScript.Echo(cmd);
     var shell = WScript.CreateObject("WScript.Shell");
     var p = shell.exec(cmd);
     var output = [];
@@ -139,7 +140,7 @@ function process() {
 
     execSafe("\"" + npackdcl + "\" help");
     execSafe("\"" + npackdcl + "\" add -p mingw-w64-i686-sjlj-posix -v 4.9.2");
-    execSafe("\"" + npackdcl + "\" add -p org.7-zip.SevenZIP -r \"[9,20)\"");
+    execSafe("\"" + npackdcl + "\" add -r \"[9,20)\" -p org.7-zip.SevenZIP");
     execSafe("\"" + npackdcl + "\" add -p net.zlib.ZLibSource -v " + version);
     
     var mingw = getPath(npackdcl, "mingw-w64-i686-sjlj-posix", "4.9.2");
@@ -154,7 +155,7 @@ function process() {
     execSafe("\"" + sevenzip + "\\7z\" a ..\\" + package_ + "-" + version + 
             ".zip * -mx9");
     
-    execSafe("appveyor PushArtifact %package%-%version%.zip");
+    execSafe("appveyor PushArtifact " + package_ + "-" + version + ".zip");
 }
 
 try {
