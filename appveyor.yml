@@ -3,7 +3,7 @@ clone_folder: c:\projects\npackd-scripts
 environment:
   matrix:
   - package: zlib-dev-i686-w64-static
-  - version: 1.2.11
+    version: 1.2.11
 init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
 install:

@@ -17,10 +17,12 @@ for /f "usebackq delims=" %%x in (`%%onecmd%%`) do set zlibsource=%%x
 xcopy "%zlibsource%" zlib-dev-i686-w64-static-1.2.11 /E /I /Q
 if %errorlevel% neq 0 exit /b %errorlevel%
 
+set oldpath=%path%
 set path=%mingww64%\bin
 cd zlib-dev-i686-w64-static-1.2.11
 mingw32-make -f win32\Makefile.gcc
 if %errorlevel% neq 0 exit /b %errorlevel%
 
+set path=%oldpath%
 appveyor PushArtifact zlib.zip
 if %errorlevel% neq 0 exit /b %errorlevel%
