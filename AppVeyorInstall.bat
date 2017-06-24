@@ -17,6 +17,9 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 "%npackd_cl%\ncl" detect
 if %errorlevel% neq 0 exit /b %errorlevel%
 
+"%npackd_cl%\ncl" help
+if %errorlevel% neq 0 exit /b %errorlevel%
+
 "%npackd_cl%\ncl" set-install-dir -f "C:\Program Files (x86)"
 if %errorlevel% neq 0 exit /b %errorlevel%
 

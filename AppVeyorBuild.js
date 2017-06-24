@@ -136,21 +136,36 @@ function process() {
 
     var npackdcl = "C:\\Program Files (x86)\\NpackdCL\\ncl.exe";
 
-    execSafe("\"" + npackdcl + "\" detect");
-
-    execSafe("\"" + npackdcl + "\" help");
     execSafe("\"" + npackdcl + "\" add -p mingw-w64-i686-sjlj-posix -v 4.9.2");
     execSafe("\"" + npackdcl + "\" add -r \"[9,20)\" -p org.7-zip.SevenZIP");
-    execSafe("\"" + npackdcl + "\" add -p net.zlib.ZLibSource -v " + version);
-    
     var mingw = getPath(npackdcl, "mingw-w64-i686-sjlj-posix", "4.9.2");
-    var zlibsource = getPath(npackdcl, "net.zlib.ZLibSource", version);
     var sevenzip = getPathR(npackdcl, "org.7-zip.SevenZIP", "[9,20)");
+
+    var source = "";
+    if (package_ === "quazip-dev-i686-w64_4.9.2-static") {
+        source = "net.sourceforge.quazip.QuaZIPSource";
+    } else {
+        source = "net.zlib.ZLibSource";
+    }
     
-    execSafe("xcopy \"" + zlibsource + "\" build /E /I /Q");
+    execSafe("\"" + npackdcl + "\" add -p " + source + " -v " + version);
     
-    execSafe("set path=" + mingw + 
-            "\\bin&&cd build&&mingw32-make -f win32\\Makefile.gcc");
+    var sourced = getPath(npackdcl, source, version);
+    execSafe("xcopy \"" + sourced + "\" build /E /I /Q");
+
+    if (package_ === "quazip-dev-i686-w64_4.9.2-static") {
+        execSafe("\"" + npackdcl + 
+                "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v 5.5");
+        execSafe("set path=" + mingw + 
+                "\\bin&&cd build&&" +
+                "C:\\NpackdSymlinks\\" +
+                "com.nokia.QtDev-i686-w64-Npackd-Release-5.5\\qtbase\\" +
+                "bin\\qmake.exe " +
+                "CONFIG+=staticlib CONFIG+=release DEFINES+=QUAZIP_STATIC");
+    } else {
+        execSafe("set path=" + mingw + 
+                "\\bin&&cd build&&mingw32-make -f win32\\Makefile.gcc");
+    }
     
     execSafe("\"" + sevenzip + "\\7z\" a " + package_ + "-" + version + 
             ".zip .\\build\\* -mx9");
