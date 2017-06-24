@@ -6,6 +6,14 @@ rem find MinGW-w64
 set onecmd="%npackd_cl%\npackdcl.exe" path "--package=mingw-w64-i686-sjlj-posix" "--versions=[4.9.2, 4.9.2]"
 for /f "usebackq delims=" %%x in (`%%onecmd%%`) do set mingww64=%%x
 
+rem install 7-zip
+"%npackd_cl%\ncl" add -p org.7-zip.SevenZIP -r "[9,20)"
+if %errorlevel% neq 0 exit /b %errorlevel%
+
+rem find 7-zip
+set onecmd="%npackd_cl%\npackdcl.exe" path "--package=org.7-zip.SevenZIP" "--versions=[9, 20)"
+for /f "usebackq delims=" %%x in (`%%onecmd%%`) do set sevenzip=%%x
+
 rem install MinGW-w64
 "%npackd_cl%\ncl" add -p net.zlib.ZLibSource -v 1.2.11
 if %errorlevel% neq 0 exit /b %errorlevel%
@@ -19,10 +27,17 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 
 set oldpath=%path%
 set path=%mingww64%\bin
+
 cd zlib-dev-i686-w64-static-1.2.11
+
 mingw32-make -f win32\Makefile.gcc
 if %errorlevel% neq 0 exit /b %errorlevel%
 
+"%sevenzip%\7z" a ..\zlib-dev-i686-w64-static-1.2.11.zip * -mx9
+if %errorlevel% neq 0 exit /b %errorlevel%
+
+cd ..
+
 set path=%oldpath%
-appveyor PushArtifact zlib.zip
+appveyor PushArtifact zlib-dev-i686-w64-static-1.2.11.zip
 if %errorlevel% neq 0 exit /b %errorlevel%
