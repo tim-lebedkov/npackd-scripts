@@ -1,9 +1,11 @@
+set w64ver=4.9.2
+
 rem install MinGW-w64
-"%npackd_cl%\ncl" add -p mingw-w64-i686-sjlj-posix -v 4.9.2
+"%npackd_cl%\ncl" add -p mingw-w64-i686-sjlj-posix -v %w64ver%
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rem find MinGW-w64
-set onecmd="%npackd_cl%\npackdcl.exe" path "--package=mingw-w64-i686-sjlj-posix" "--versions=[4.9.2, 4.9.2]"
+set onecmd="%npackd_cl%\npackdcl.exe" path "--package=mingw-w64-i686-sjlj-posix" "--versions=[%w64ver%, %w64ver%]"
 for /f "usebackq delims=" %%x in (`%%onecmd%%`) do set mingww64=%%x
 
 rem install 7-zip
@@ -15,29 +17,29 @@ set onecmd="%npackd_cl%\npackdcl.exe" path "--package=org.7-zip.SevenZIP" "--ver
 for /f "usebackq delims=" %%x in (`%%onecmd%%`) do set sevenzip=%%x
 
 rem install MinGW-w64
-"%npackd_cl%\ncl" add -p net.zlib.ZLibSource -v 1.2.11
+"%npackd_cl%\ncl" add -p net.zlib.ZLibSource -v %version%
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rem find ZLibSource
-set onecmd="%npackd_cl%\npackdcl.exe" path "--package=net.zlib.ZLibSource" "--versions=[1.2.11, 1.2.11]"
+set onecmd="%npackd_cl%\npackdcl.exe" path "--package=net.zlib.ZLibSource" "--versions=[%version%, %version%]"
 for /f "usebackq delims=" %%x in (`%%onecmd%%`) do set zlibsource=%%x
 
-xcopy "%zlibsource%" zlib-dev-i686-w64-static-1.2.11 /E /I /Q
+xcopy "%zlibsource%" build /E /I /Q
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 set oldpath=%path%
 set path=%mingww64%\bin
 
-cd zlib-dev-i686-w64-static-1.2.11
+cd build
 
 mingw32-make -f win32\Makefile.gcc
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-"%sevenzip%\7z" a ..\zlib-dev-i686-w64-static-1.2.11.zip * -mx9
+"%sevenzip%\7z" a ..\%package%-%version%.zip * -mx9
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 cd ..
 
 set path=%oldpath%
-appveyor PushArtifact zlib-dev-i686-w64-static-1.2.11.zip
+appveyor PushArtifact %package%-%version%.zip
 if %errorlevel% neq 0 exit /b %errorlevel%
