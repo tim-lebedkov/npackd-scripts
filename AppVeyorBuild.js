@@ -147,7 +147,7 @@ function process() {
     var zlibsource = getPath(npackdcl, "net.zlib.ZLibSource", version);
     var sevenzip = getPathR(npackdcl, "org.7-zip.SevenZIP", "[9,20)");
     
-    execSafe("xcopy " + zlibsource + " build /E /I /Q");
+    execSafe("xcopy \"" + zlibsource + "\" build /E /I /Q");
     
     execSafe("set path=" + mingw + 
             "\\bin&&cd build&&mingw32-make -f win32\\Makefile.gcc");
