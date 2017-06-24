@@ -127,12 +127,15 @@ function compareVersions(a, b) {
 
 function process() {
     var arguments = WScript.Arguments;
-    var package_ = "zlib-dev-i686-w64_4.9.2-static";
-    var version = "1.2.11";
+    var WshShell = WScript.CreateObject("WScript.Shell");
+    var WshSysEnv = WshShell.Environment("SYSTEM");
 
-    execSafe("\"" + npackdcl + "\" detect");
+    var package_ = WshSysEnv("PACKAGE");
+    var version = WshSysEnv("VERSION");
 
     var npackdcl = "C:\\Program Files (x86)\\NpackdCL\\ncl.exe";
+
+    execSafe("\"" + npackdcl + "\" detect");
 
     execSafe("\"" + npackdcl + "\" help");
     execSafe("\"" + npackdcl + "\" add -p mingw-w64-i686-sjlj-posix -v 4.9.2");
