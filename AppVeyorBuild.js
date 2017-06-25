@@ -201,7 +201,8 @@ function process() {
                 "&&cd C:\\NpackdSymlinks\\" + package_ + "-" + version + "&&call configure.bat -opensource -confirm-license -release -static -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion -qt-style-windowsvista -qt-style-windowsxp -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -opengl desktop -qt-sql-sqlite -no-openssl -make libs");
 
         execSafe("set path=" + mingw + 
-                "\\bin&&cd build\\src&&mingw32-make");
+                "\\bin&&cd C:\\NpackdSymlinks\\" + package_ + "-" + 
+                version + "&&mingw32-make");
     } else {
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&mingw32-make -f win32\\Makefile.gcc");
