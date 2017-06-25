@@ -180,11 +180,14 @@ function process() {
         execSafe("copy build\\src\\quazip\\release\\libquazip.a build\\lib");
         execSafe("copy build\\src\\quazip\\*.h build\\include");
     } else if (package_ === "qt-dev-i686-w64_sjlj_posix_4.9.2-npackd") {
-        execSafe("\"" + npackdcl + 
-                "\" add -p com.activestate.ActivePerl64 -r [5.8,6)");
+        //execSafe("\"" + npackdcl + 
+        //        "\" add -p com.activestate.ActivePerl64 -r [5.8,6)");
         execSafe("\"" + npackdcl + 
                 "\" add -p org.python.Python64 -r [2.7,4)");
-        var perl = getPathR(npackdcl, "com.activestate.ActivePerl64", "[5.8,6)");
+
+        var perl = "c:\\perl"; 
+        // getPathR(npackdcl, "com.activestate.ActivePerl64", "[5.8,6)");
+
         var python = getPathR(npackdcl, "org.python.Python64", "[2.7,4)");
         
         execSafe("xcopy \"" + sourced + 
