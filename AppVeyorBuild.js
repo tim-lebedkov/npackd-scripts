@@ -165,10 +165,11 @@ function process() {
         var libz = getPath(npackdcl, "libz-dev-i686-w64_4.9.2-static", "1.2.11");
 
         execSafe("set path=" + mingw + 
-                "\\bin&&set zlib=" + libz + "\\src&&cd build\\src&&" +
+                "\\bin&&" +
                 "C:\\NpackdSymlinks\\" +
                 "com.nokia.QtDev-i686-w64-Npackd-Release-5.5\\qtbase\\" +
                 "bin\\qmake.exe " +
+                "LIBS+=-L" + libz + "\\lib INCLUDEPATH+=" + libz + "\\include " +
                 "CONFIG+=staticlib CONFIG+=release DEFINES+=QUAZIP_STATIC");
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&mingw32-make");
