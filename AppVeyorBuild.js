@@ -144,6 +144,8 @@ function process() {
     var source = "";
     if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
+    } else if (package_ === "qt-dev-i686-w64_sjlj_posix_4.9.2-npackd") {
+        source = "com.nokia.QtSource";
     } else {
         source = "net.zlib.ZLibSource";
     }
@@ -177,6 +179,25 @@ function process() {
                 
         execSafe("copy build\\src\\quazip\\release\\libquazip.a build\\lib");
         execSafe("copy build\\src\\quazip\\*.h build\\include");
+    } else if (package_ === "qt-dev-i686-w64_sjlj_posix_4.9.2-npackd") {
+        execSafe("\"" + npackdcl + 
+                "\" add -p com.activestate.ActivePerl64 -r [5.8,6)");
+        execSafe("\"" + npackdcl + 
+                "\" add -p org.python.Python64 -r [2.7,4)");
+        var perl = getPathR(npackdcl, "com.activestate.ActivePerl64", "[5.8,6)");
+        var python = getPathR(npackdcl, "org.python.Python64", "[2.7,4)");
+        
+        execSafe("xcopy \"" + sourced + 
+                "\" C:\\NpackdSymlinks\\" + package_ + "-" + 
+                version + " /E /I /Q");
+        
+        // maybe use -ltcg
+        execSafe("set path=" + mingw + 
+                "\\bin;" + perl + "\\bin" + python +
+                "&&cd C:\\NpackdSymlinks\\" + package_ + "-" + version + "&&call configure.bat -opensource -confirm-license -release -static -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion -qt-style-windowsvista -qt-style-windowsxp -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -opengl desktop -qt-sql-sqlite -no-openssl -make libs");
+
+        execSafe("set path=" + mingw + 
+                "\\bin&&cd build\\src&&mingw32-make");
     } else {
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&mingw32-make -f win32\\Makefile.gcc");
