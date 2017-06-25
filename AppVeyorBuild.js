@@ -153,7 +153,7 @@ function process() {
     var sourced = getPath(npackdcl, source, version);
 
     execSafe("mkdir build");
-    execSafe("mkdir build\\bin");
+    execSafe("mkdir build\\lib");
     execSafe("mkdir build\\include");
     execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
 
@@ -169,13 +169,13 @@ function process() {
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&mingw32-make");
                 
-        execSafe("copy build\\src\\quazip\\release\\libquazip.a build\\bin");
+        execSafe("copy build\\src\\quazip\\release\\libquazip.a build\\lib");
         execSafe("copy build\\src\\quazip\\*.h build\\include");
     } else {
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&mingw32-make -f win32\\Makefile.gcc");
                 
-        execSafe("copy build\\src\\libz.a build\\bin");
+        execSafe("copy build\\src\\libz.a build\\lib");
         execSafe("copy build\\src\\*.h build\\include");
     }
     
