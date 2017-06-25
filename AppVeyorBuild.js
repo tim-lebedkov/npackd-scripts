@@ -169,7 +169,8 @@ function process() {
                 "C:\\NpackdSymlinks\\" +
                 "com.nokia.QtDev-i686-w64-Npackd-Release-5.5\\qtbase\\" +
                 "bin\\qmake.exe " +
-                "LIBS+=-L" + libz + "\\lib INCLUDEPATH+=" + libz + "\\include " +
+                "LIBS+=-L\"" + libz + "\\lib\" INCLUDEPATH+=\"" + libz + 
+                "\\include\" " +
                 "CONFIG+=staticlib CONFIG+=release DEFINES+=QUAZIP_STATIC");
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&mingw32-make");
