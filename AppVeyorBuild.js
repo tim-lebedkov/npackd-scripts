@@ -144,7 +144,7 @@ function process() {
     var source = "";
     if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
-    } else if (package_ === "qt-dev-i686-w64_sjlj_posix_4.9.2-npackd") {
+    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
     } else {
         source = "net.zlib.ZLibSource";
@@ -179,7 +179,7 @@ function process() {
                 
         execSafe("copy build\\src\\quazip\\release\\libquazip.a build\\lib");
         execSafe("copy build\\src\\quazip\\*.h build\\include");
-    } else if (package_ === "qt-dev-i686-w64_sjlj_posix_4.9.2-npackd") {
+    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
         //execSafe("\"" + npackdcl + 
         //        "\" add -p com.activestate.ActivePerl64 -r [5.8,6)");
         //execSafe("\"" + npackdcl + 
