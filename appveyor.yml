@@ -2,8 +2,8 @@ version: 0.3.{build}
 clone_folder: c:\projects\npackd-scripts
 environment:
   matrix:
-#  - package: quazip-dev-i686-w64_4.9.2-static
-#    version: 0.7.1
+  - package: quazip-dev-i686-w64_4.9.2-qt_5.5-static
+    version: 0.7.1
   - package: libz-dev-i686-w64_4.9.2-static
     version: 1.2.8
   - package: libz-dev-i686-w64_4.9.2-static
