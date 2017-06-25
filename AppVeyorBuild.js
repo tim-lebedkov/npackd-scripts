@@ -142,7 +142,7 @@ function process() {
     var sevenzip = getPathR(npackdcl, "org.7-zip.SevenZIP", "[9,20)");
 
     var source = "";
-    if (package_ === "quazip-dev-i686-w64_4.9.2-qt_5.5-static") {
+    if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
     } else {
         source = "net.zlib.ZLibSource";
@@ -157,12 +157,12 @@ function process() {
     execSafe("mkdir build\\include");
     execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
 
-    if (package_ === "quazip-dev-i686-w64_4.9.2-qt_5.5-static") {
+    if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
         execSafe("\"" + npackdcl + 
                 "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v 5.5");
         execSafe("\"" + npackdcl + 
-                "\" add -p z-dev-i686-w64_4.9.2-static -v 1.2.11 --file=C:\\projects\\z-dev-i686-w64_4.9.2-static");
-        var libz = getPath(npackdcl, "z-dev-i686-w64_4.9.2-static", "1.2.11");
+                "\" add -p z-dev-i686-w64_sjlj_posix_4.9.2-static -v 1.2.11 --file=C:\\projects\\z-dev-i686-w64_sjlj_posix_4.9.2-static");
+        var libz = getPath(npackdcl, "z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11");
 
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&" +
