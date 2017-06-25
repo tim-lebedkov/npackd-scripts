@@ -4,9 +4,9 @@ environment:
   matrix:
   - package: quazip-dev-i686-w64_4.9.2-qt_5.5-static
     version: 0.7.1
-  - package: libz-dev-i686-w64_4.9.2-static
+  - package: z-dev-i686-w64_4.9.2-static
     version: 1.2.8
-  - package: libz-dev-i686-w64_4.9.2-static
+  - package: z-dev-i686-w64_4.9.2-static
     version: 1.2.11
 init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))

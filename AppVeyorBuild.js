@@ -161,8 +161,8 @@ function process() {
         execSafe("\"" + npackdcl + 
                 "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v 5.5");
         execSafe("\"" + npackdcl + 
-                "\" add -p libz-dev-i686-w64_4.9.2-static -v 1.2.11 --file=C:\\projects\\libz-dev-i686-w64_4.9.2-static");
-        var libz = getPath(npackdcl, "libz-dev-i686-w64_4.9.2-static", "1.2.11");
+                "\" add -p z-dev-i686-w64_4.9.2-static -v 1.2.11 --file=C:\\projects\\z-dev-i686-w64_4.9.2-static");
+        var libz = getPath(npackdcl, "z-dev-i686-w64_4.9.2-static", "1.2.11");
 
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&" +
