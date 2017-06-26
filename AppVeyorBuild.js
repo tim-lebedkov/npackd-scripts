@@ -136,13 +136,21 @@ function process() {
 
     var npackdcl = "C:\\Program Files (x86)\\NpackdCL\\ncl.exe";
 
-    execSafe("\"" + npackdcl + "\" add -p mingw-w64-i686-sjlj-posix -v 4.9.2");
+    var mingwVersion = "4.9.2";
+    if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
+        mingwVersion = "7.1";
+    }
+    
+    execSafe("\"" + npackdcl + "\" add -p mingw-w64-i686-sjlj-posix -v " + 
+            mingwVersion);
+    var mingw = getPath(npackdcl, "mingw-w64-i686-sjlj-posix", mingwVersion);
+    
     execSafe("\"" + npackdcl + "\" add -r \"[9,20)\" -p org.7-zip.SevenZIP");
-    var mingw = getPath(npackdcl, "mingw-w64-i686-sjlj-posix", "4.9.2");
     var sevenzip = getPathR(npackdcl, "org.7-zip.SevenZIP", "[9,20)");
 
     var source = "";
-    if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
+    if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static" ||
+            package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
     } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
@@ -159,7 +167,8 @@ function process() {
     execSafe("mkdir build\\include");
     execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
 
-    if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
+    if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static" ||
+            package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
         execSafe("\"" + npackdcl + 
                 "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v 5.5");
         execSafe("\"" + npackdcl + 
@@ -182,13 +191,12 @@ function process() {
     } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
         //execSafe("\"" + npackdcl + 
         //        "\" add -p com.activestate.ActivePerl64 -r [5.8,6)");
-        //execSafe("\"" + npackdcl + 
-        //        "\" add -p org.python.Python64 -r [2.7,4)");
+        // execSafe("\"" + npackdcl + "\" add -p org.python.Python64 -r [2.7,4)");
 
-        var perl = "c:\\perl"; 
-        // getPathR(npackdcl, "com.activestate.ActivePerl64", "[5.8,6)");
+        var perl = "c:\\perl64"; 
+        //getPathR(npackdcl, "com.activestate.ActivePerl64", "[5.8,6)");
 
-        var python = "C:\\Python36";
+        var python = "C:\\Program Files (x86)\\Python35-32";
         // getPathR(npackdcl, "org.python.Python64", "[2.7,4)");
         
         execSafe("xcopy \"" + sourced + 
