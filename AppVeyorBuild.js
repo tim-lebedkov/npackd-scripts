@@ -71,6 +71,7 @@ function getPathR(npackdcl, package_, versions, require) {
     else {
 		var res = exec2("cmd.exe /s /c \"\"" + npackdcl + "\" add " +
 				" -r \"" + versions + "\" -p " + package_ + " 2>&1\"");
+		lines = res[1];
 		if (lines.length > 0)
 			return lines[0];
 		else
@@ -192,7 +193,8 @@ function process() {
                 
         execSafe("copy build\\src\\quazip\\release\\libquazip.a build\\lib");
         execSafe("copy build\\src\\quazip\\*.h build\\include");
-    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
+    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release" ||
+			package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
         var perl = getPathR(npackdcl, "com.activestate.ActivePerl64", "[5.8,6)");
         var python = getPathR(npackdcl, "org.python.Python64", "[2.7,4)");
 
