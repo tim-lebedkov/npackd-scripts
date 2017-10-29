@@ -171,7 +171,7 @@ function process() {
     
     var sourced = getPath(npackdcl, source, version);
 	var fso = new ActiveXObject("Scripting.FileSystemObject");
-	if (!fso.FolderExists(fldr)) {
+	if (!fso.FolderExists("build")) {
 		execSafe("mkdir build");
 		execSafe("mkdir build\\lib");
 		execSafe("mkdir build\\include");
