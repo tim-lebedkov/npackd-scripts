@@ -65,15 +65,16 @@ function getPath(npackdcl, package_, version) {
 function getPathR(npackdcl, package_, versions, require) {
     var res = exec2("cmd.exe /s /c \"\"" + npackdcl + "\" path " +
             " -r \"" + versions + "\" -p " + package_ + " 2>&1\"");
-    var lines = res[1];
-    if (lines.length > 0)
-        return lines[0];
+    if (res[1].length > 0)
+        return res[1][0];
     else {
-		var res = exec2("cmd.exe /s /c \"\"" + npackdcl + "\" add " +
-				" -r \"" + versions + "\" -p " + package_ + " 2>&1\"");
-		lines = res[1];
-		if (lines.length > 0)
-			return lines[0];
+		execSafe("\"" + npackdcl + "\" add " +
+				" -r \"" + versions + "\" -p " + package_);
+
+		res = exec2("cmd.exe /s /c \"\"" + npackdcl + "\" path " +
+            " -r \"" + versions + "\" -p " + package_ + " 2>&1\"");
+		if (res[1].length > 0)
+			return res[1][0];
 		else
 			return "";
 	}
@@ -159,7 +160,8 @@ function process() {
     if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static" ||
             package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
-    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
+    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release" ||
+			package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
     } else {
         source = "net.zlib.ZLibSource";
@@ -168,10 +170,13 @@ function process() {
     execSafe("\"" + npackdcl + "\" add -p " + source + " -v " + version);
     
     var sourced = getPath(npackdcl, source, version);
-    execSafe("mkdir build");
-    execSafe("mkdir build\\lib");
-    execSafe("mkdir build\\include");
-    execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
+	var fso = new ActiveXObject("Scripting.FileSystemObject");
+	if (!fso.FolderExists(fldr)) {
+		execSafe("mkdir build");
+		execSafe("mkdir build\\lib");
+		execSafe("mkdir build\\include");
+		execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
+	}
     if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static" ||
             package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
         execSafe("\"" + npackdcl + 
@@ -201,6 +206,13 @@ function process() {
         execSafe("xcopy \"" + sourced + 
                 "\" C:\\NpackdSymlinks\\" + package_ + "-" + 
                 version + " /E /I /Q");
+				
+		if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release" && 
+				version === "5.5.1") {
+			execSafe("bin\\patch C:\\NpackdSymlinks\\" + package_ + "-" + 
+                version + "\\qtdeclarative\\src\\3rdparty\\masm\\yarr\\" + 
+				"YarrPattern.h Qt-5.5.1-YarrPattern.h.patch");
+		}
         
         // maybe use -ltcg
         execSafe("set path=" + mingw + 
