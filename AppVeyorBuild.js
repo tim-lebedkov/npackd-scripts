@@ -146,26 +146,31 @@ function process() {
     var npackdcl = "ncl.exe";
 
     var mingwVersion = "4.9.2";
-    if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
+	var compilerPackage = "mingw-w64-i686-sjlj-posix";
+	if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
+        source = "net.sourceforge.quazip.QuaZIPSource";
+    } else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
+        source = "net.sourceforge.quazip.QuaZIPSource";
         mingwVersion = "7.1";
-    }
-    
-    execSafe("\"" + npackdcl + "\" add -p mingw-w64-i686-sjlj-posix -v " + 
-            mingwVersion);
-    var mingw = getPath(npackdcl, "mingw-w64-i686-sjlj-posix", mingwVersion);
+    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
+        source = "com.nokia.QtSource";
+        mingwVersion = "7.2";
+	} else if (package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
+        source = "com.nokia.QtSource";
+		compilerPackage = "mingw-w64-x86_64-seh-posix";
+        //mingwVersion = "7.2";
+	} else if (package_ === "z-dev-i686-w64_sjlj_posix_4.9.2-static") {
+        source = "net.zlib.ZLibSource";
+	} else {
+		throw new Error("Unsupported package");
+	}
     
     var sevenzip = getPathR(npackdcl, "org.7-zip.SevenZIP", "[9,20)", true);
 
-    var source = "";
-    if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static" ||
-            package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
-        source = "net.sourceforge.quazip.QuaZIPSource";
-    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release" ||
-			package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
-        source = "com.nokia.QtSource";
-    } else {
-        source = "net.zlib.ZLibSource";
-    }
+    execSafe("\"" + npackdcl + "\" add -p " + compilerPackage + " -v " + 
+            mingwVersion);
+			
+    var mingw = getPath(npackdcl, compilerPackage, mingwVersion);
     
     execSafe("\"" + npackdcl + "\" add -p " + source + " -v " + version);
     
