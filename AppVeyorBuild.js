@@ -154,7 +154,7 @@ function process() {
         mingwVersion = "7.1";
     } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
-        mingwVersion = "7.2";
+        //mingwVersion = "7.2";
 	} else if (package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
 		compilerPackage = "mingw-w64-x86_64-seh-posix";
