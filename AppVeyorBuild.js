@@ -154,11 +154,13 @@ function process() {
         mingwVersion = "7.1";
     } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
-        //mingwVersion = "7.2";
+		if (compareVersions(version, "5.6") >= 0)
+			mingwVersion = "7.2";
 	} else if (package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
 		compilerPackage = "mingw-w64-x86_64-seh-posix";
-        //mingwVersion = "7.2";
+		if (compareVersions(version, "5.6") >= 0)
+			mingwVersion = "7.2";
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_4.9.2-static") {
         source = "net.zlib.ZLibSource";
 	} else {
