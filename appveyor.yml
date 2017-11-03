@@ -10,6 +10,8 @@ environment:
 #    version: 5.6
 # too slow for Appveyor - package: com.nokia.QtDev-i686-w64-Npackd-Release
 #    version: 5.7
+# too slow for Appveyor - package: com.nokia.QtDev-i686-w64-Npackd-Release
+#    version: 5.8
 # too slow for Appveyor - package: com.nokia.QtDev-x86_64-w64-Npackd-Release
 #    version: 5.5
 # too slow for Appveyor - package: com.nokia.QtDev-x86_64-w64-Npackd-Release
@@ -18,6 +20,8 @@ environment:
 #    version: 5.6
 # too slow for Appveyor - package: com.nokia.QtDev-x86_64-w64-Npackd-Release
 #    version: 5.7
+# too slow for Appveyor - package: com.nokia.QtDev-x86_64-w64-Npackd-Release
+#    version: 5.8
   - package: quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static
     version: 0.7.3
   - package: quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static
