@@ -207,26 +207,47 @@ function process() {
         execSafe("copy build\\src\\quazip\\*.h build\\include");
     } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release" ||
 			package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
-        var perl = getPathR(npackdcl, "com.activestate.ActivePerl64", "[5.8,6)");
+        var perl = getPathR(npackdcl, "com.strawberryperl.StrawberryPerl64", "[5.8,6)");
         var python = getPathR(npackdcl, "org.python.Python64", "[2.7,4)");
 
-        execSafe("xcopy \"" + sourced + 
-                "\" C:\\NpackdSymlinks\\" + package_ + "-" + 
-                version + " /E /I /Q");
+		var buildDir = "C:\\NpackdSymlinks\\" + package_ + "-" + 
+					version;
+					
+		// MinGW can only handle path length up to 255 characters
+		if (compareVersions(version, "5.8") >= 0) {
+			if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release")
+				buildDir = "C:\\NpackdSymlinks\\qt-npackd-" + version;
+			else
+				buildDir = "C:\\NpackdSymlinks\\qt-npackd64-" + version;
+		}
+					
+		if (!fso.FolderExists(buildDir)) {
+			execSafe("xcopy \"" + sourced + "\" " + buildDir + " /E /I /Q");
+		}
 				
 		if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release" && 
 				version === "5.5.1") {
-			execSafe("bin\\patch C:\\NpackdSymlinks\\" + package_ + "-" + 
-                version + "\\qtdeclarative\\src\\3rdparty\\masm\\yarr\\" + 
-				"YarrPattern.h Qt-5.5.1-YarrPattern.h.patch");
+			execSafe("bin\\patch " + buildDir + 
+					"\\qtdeclarative\\src\\3rdparty\\masm\\yarr\\" + 
+					"YarrPattern.h Qt-5.5.1-YarrPattern.h.patch");
 		}
         
+		var setPathCmd = "set path=" + mingw + 
+                "\\bin;" + perl + "\\perl\\bin;" + python;
+		
+		var configureOptions;
+		if (compareVersions(version, "5.8") >= 0) {
+			configureOptions = "-opensource -confirm-license -release -static -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion -style-windowsxp -style-windowsvista -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -no-freetype -opengl desktop -sql-sqlite -no-openssl -make libs";
+		} else {
+			configureOptions = "-opensource -confirm-license -release -static -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion -qt-style-windowsvista -qt-style-windowsxp -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -opengl desktop -qt-sql-sqlite -no-openssl -make libs";
+		}
+		
         // maybe use -ltcg
-        execSafe("set path=" + mingw + 
-                "\\bin&&cd C:\\NpackdSymlinks\\" + package_ + "-" + version + "&&call configure.bat -opensource -confirm-license -release -static -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion -qt-style-windowsvista -qt-style-windowsxp -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -opengl desktop -qt-sql-sqlite -no-openssl -make libs");
-        execSafe("set path=" + mingw + 
-                "\\bin;" + perl + "\\bin;" + python + "&&cd C:\\NpackdSymlinks\\" + package_ + "-" + 
-                version + "&&mingw32-make");
+        execSafe(setPathCmd + 
+                "&&cd " + buildDir + 
+				"&&call configure.bat " + configureOptions);
+        execSafe(setPathCmd + "&&cd " + buildDir + 
+                "&&mingw32-make");
     } else {
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&mingw32-make -f win32\\Makefile.gcc");
