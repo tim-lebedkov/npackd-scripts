@@ -147,22 +147,32 @@ function process() {
 
     var mingwVersion = "4.9.2";
 	var compilerPackage = "mingw-w64-i686-sjlj-posix";
+	var qtVersion = "5.5";
 	if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
+		qtVersion = "5.5";
     } else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
         mingwVersion = "7.1";
-    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
-        source = "com.nokia.QtSource";
-		if (compareVersions(version, "5.6") >= 0)
-			mingwVersion = "7.2";
+		qtVersion = "5.5";
+	} else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static") {
+        source = "net.sourceforge.quazip.QuaZIPSource";
+        mingwVersion = "7.2";
+		qtVersion = "5.9.2";
 	} else if (package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
 		compilerPackage = "mingw-w64-x86_64-seh-posix";
 		if (compareVersions(version, "5.6") >= 0)
 			mingwVersion = "7.2";
+    } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
+        source = "com.nokia.QtSource";
+		if (compareVersions(version, "5.6") >= 0)
+			mingwVersion = "7.2";
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_4.9.2-static") {
         source = "net.zlib.ZLibSource";
+	} else if (package_ === "z-dev-i686-w64_sjlj_posix_7.2-static") {
+        source = "net.zlib.ZLibSource";
+		mingwVersion = "7.2";
 	} else {
 		throw new Error("Unsupported package");
 	}
@@ -185,9 +195,11 @@ function process() {
 		execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
 	}
     if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static" ||
-            package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
+            package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static" ||
+			package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static") {
         execSafe("\"" + npackdcl + 
-                "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v 5.5");
+                "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v " + 
+				qtVersion);
         execSafe("\"" + npackdcl + 
                 "\" add -p z-dev-i686-w64_sjlj_posix_4.9.2-static -v 1.2.11 --file=C:\\projects\\z-dev-i686-w64_sjlj_posix_4.9.2-static");
         var libz = getPath(npackdcl, "z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11");
