@@ -194,7 +194,7 @@ function process() {
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_7.2-static") {
         source = "net.zlib.ZLibSource";
 		mingwVersion = "7.2";
-	} else if (package_ === "z-dev-x86_64-w64_seh_posix_4.9.2-static")
+	} else if (package_ === "z-dev-x86_64-w64_seh_posix_4.9.2-static") {
         source = "net.zlib.ZLibSource";
 		mingwVersion = "4.9.2";
 	} else {
