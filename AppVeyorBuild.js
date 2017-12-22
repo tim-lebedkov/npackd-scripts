@@ -135,6 +135,27 @@ function compareVersions(a, b) {
 	return r;
 }
 
+function getQtPath(version, _64) {
+	var qtDir;
+	
+	// MinGW can only handle path length up to 255 characters
+	if (compareVersions(version, "5.8") >= 0) {
+		if (!_64)
+			qtDir = "C:\\NpackdSymlinks\\qt-npackd-" + version;
+		else
+			qtDir = "C:\\NpackdSymlinks\\qt-npackd64-" + version;
+	} else {
+		if (!_64)
+			qtDir = "C:\\NpackdSymlinks\\" +
+				"com.nokia.QtDev-i686-w64-Npackd-Release-" + version;
+		else
+			qtDir = "C:\\NpackdSymlinks\\" +
+				"com.nokia.QtDev-x86_64-w64-Npackd-Release-" + version;
+	}
+
+	return qtDir;
+}
+
 function process() {
     var arguments = WScript.Arguments;
     var WshShell = WScript.CreateObject("WScript.Shell");
@@ -203,11 +224,10 @@ function process() {
         execSafe("\"" + npackdcl + 
                 "\" add -p z-dev-i686-w64_sjlj_posix_4.9.2-static -v 1.2.11 --file=C:\\projects\\z-dev-i686-w64_sjlj_posix_4.9.2-static");
         var libz = getPath(npackdcl, "z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11");
-
+					
         execSafe("set path=" + mingw + 
-                "\\bin&&cd build\\src&&" +
-                "C:\\NpackdSymlinks\\" +
-                "com.nokia.QtDev-i686-w64-Npackd-Release-5.5\\qtbase\\" +
+                "\\bin&&cd build\\src&&" + 
+				getQtPath(qtVersion, false) + "\\qtbase\\" +
                 "bin\\qmake.exe " +
                 "LIBS+=-lz " +
                 "LIBS+=-L\"" + libz + "\\lib\" " +
