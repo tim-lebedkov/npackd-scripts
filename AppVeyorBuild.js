@@ -194,6 +194,9 @@ function process() {
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_7.2-static") {
         source = "net.zlib.ZLibSource";
 		mingwVersion = "7.2";
+	} else if (package_ === "z-dev-x86_64-w64_seh_posix_4.9.2-static")
+        source = "net.zlib.ZLibSource";
+		mingwVersion = "4.9.2";
 	} else {
 		throw new Error("Unsupported package");
 	}
@@ -215,6 +218,7 @@ function process() {
 		execSafe("mkdir build\\include");
 		execSafe("xcopy \"" + sourced + "\" build\\src /E /I /Q");
 	}
+	
     if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static" ||
             package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static" ||
 			package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static") {
