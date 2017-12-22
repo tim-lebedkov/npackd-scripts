@@ -167,16 +167,19 @@ function process() {
     var npackdcl = "ncl.exe";
 
     var mingwVersion = "4.9.2";
-	var compilerPackage = "mingw-w64-i686-sjlj-posix";
+	var compilerPackage;
 	var qtVersion = "5.5";
 	if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
+		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.sourceforge.quazip.QuaZIPSource";
 		qtVersion = "5.5";
     } else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
+		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.sourceforge.quazip.QuaZIPSource";
         mingwVersion = "7.1";
 		qtVersion = "5.5";
 	} else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static") {
+		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.sourceforge.quazip.QuaZIPSource";
         mingwVersion = "7.2";
 		qtVersion = "5.9.2";
@@ -186,15 +189,19 @@ function process() {
 		if (compareVersions(version, "5.6") >= 0)
 			mingwVersion = "7.2";
     } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
+		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "com.nokia.QtSource";
 		if (compareVersions(version, "5.6") >= 0)
 			mingwVersion = "7.2";
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_4.9.2-static") {
+		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.zlib.ZLibSource";
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_7.2-static") {
+		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.zlib.ZLibSource";
 		mingwVersion = "7.2";
 	} else if (package_ === "z-dev-x86_64-w64_seh_posix_4.9.2-static") {
+		compilerPackage = "mingw-w64-x86_64-seh-posix";
         source = "net.zlib.ZLibSource";
 		mingwVersion = "4.9.2";
 	} else {
