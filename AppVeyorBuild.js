@@ -254,7 +254,7 @@ function process() {
         execSafe("\"" + npackdcl + "\" add -p " + qtp[0] + " -v " + qtp[1]);
         execSafe("\"" + npackdcl + "\" add -p " + zp[0] + " -v " + zp[1] + 
 				" --file=C:\\projects\\z-dev");
-        var libz = getPath(npackdcl, "z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11");
+        var libz = getPath(npackdcl, zp[0], zp[1]);
 					
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&" + 
