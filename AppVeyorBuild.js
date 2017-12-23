@@ -141,16 +141,16 @@ function getQtPath(qtp) {
 	// MinGW can only handle path length up to 255 characters
 	if (compareVersions(qtp[1], "5.8") >= 0) {
 		if (qtp[0] === "com.nokia.QtDev-i686-w64-Npackd-Release")
-			qtDir = "C:\\NpackdSymlinks\\qt-npackd-" + version;
+			qtDir = "C:\\NpackdSymlinks\\qt-npackd-" + qtp[1];
 		else
-			qtDir = "C:\\NpackdSymlinks\\qt-npackd64-" + version;
+			qtDir = "C:\\NpackdSymlinks\\qt-npackd64-" + qtp[1];
 	} else {
 		if (qtp[0] === "com.nokia.QtDev-i686-w64-Npackd-Release")
 			qtDir = "C:\\NpackdSymlinks\\" +
-				"com.nokia.QtDev-i686-w64-Npackd-Release-" + version;
+				"com.nokia.QtDev-i686-w64-Npackd-Release-" + qtp[1];
 		else
 			qtDir = "C:\\NpackdSymlinks\\" +
-				"com.nokia.QtDev-x86_64-w64-Npackd-Release-" + version;
+				"com.nokia.QtDev-x86_64-w64-Npackd-Release-" + qtp[1];
 	}
 
 	return qtDir;
