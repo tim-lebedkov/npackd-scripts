@@ -135,17 +135,17 @@ function compareVersions(a, b) {
 	return r;
 }
 
-function getQtPath(version, _64) {
+function getQtPath(qtp) {
 	var qtDir;
 	
 	// MinGW can only handle path length up to 255 characters
-	if (compareVersions(version, "5.8") >= 0) {
-		if (!_64)
+	if (compareVersions(qtp[1], "5.8") >= 0) {
+		if (qtp[0] === "com.nokia.QtDev-i686-w64-Npackd-Release")
 			qtDir = "C:\\NpackdSymlinks\\qt-npackd-" + version;
 		else
 			qtDir = "C:\\NpackdSymlinks\\qt-npackd64-" + version;
 	} else {
-		if (!_64)
+		if (qtp[0] === "com.nokia.QtDev-i686-w64-Npackd-Release")
 			qtDir = "C:\\NpackdSymlinks\\" +
 				"com.nokia.QtDev-i686-w64-Npackd-Release-" + version;
 		else
@@ -258,7 +258,7 @@ function process() {
 					
         execSafe("set path=" + mingw + 
                 "\\bin&&cd build\\src&&" + 
-				getQtPath(qtVersion, false) + "\\qtbase\\" +
+				getQtPath(qtp) + "\\qtbase\\" +
                 "bin\\qmake.exe " +
                 "LIBS+=-lz " +
                 "LIBS+=-L\"" + libz + "\\lib\" " +
