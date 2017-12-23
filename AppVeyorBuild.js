@@ -169,21 +169,29 @@ function process() {
     var mingwVersion;
 	var compilerPackage;
 	var qtVersion;
+	var zp;
+	var qtp;
 	if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
 		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.sourceforge.quazip.QuaZIPSource";
 		qtVersion = "5.5";
 		mingwVersion = "4.9.2";
+		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
+		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.5"];
     } else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
 		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.sourceforge.quazip.QuaZIPSource";
         mingwVersion = "7.1";
 		qtVersion = "5.5";
+		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
+		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.5"];
 	} else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static") {
 		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.sourceforge.quazip.QuaZIPSource";
         mingwVersion = "7.2";
 		qtVersion = "5.9.2";
+		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
+		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.9.2"];
 	} else if (package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
 		compilerPackage = "mingw-w64-x86_64-seh-posix";
@@ -191,7 +199,6 @@ function process() {
 			mingwVersion = "7.2";
 		else
 			mingwVersion = "4.9.2";
-		qtVersion = "5.5";
     } else if (package_ === "com.nokia.QtDev-i686-w64-Npackd-Release") {
 		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "com.nokia.QtSource";
@@ -199,7 +206,6 @@ function process() {
 			mingwVersion = "7.2";
 		else
 			mingwVersion = "4.9.2";
-		qtVersion = "5.5";
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_4.9.2-static") {
 		compilerPackage = "mingw-w64-i686-sjlj-posix";
         source = "net.zlib.ZLibSource";
@@ -217,6 +223,8 @@ function process() {
         source = "net.sourceforge.quazip.QuaZIPSource";
 		mingwVersion = "4.9.2";
 		qtVersion = "5.5";
+		zp = ["z-dev-x86_64-w64_seh_posix_4.9.2-static", "1.2.11"];
+		qtp = ["com.nokia.QtDev-x86_64-w64-Npackd-Release", "5.5"];
 	} else {
 		throw new Error("Unsupported package");
 	}
@@ -243,11 +251,9 @@ function process() {
             package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static" ||
 			package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static" ||
 			package_ === "quazip-dev-x86_64-w64_seh_posix_4.9.2-qt_5.5-static") {
-        execSafe("\"" + npackdcl + 
-                "\" add -p com.nokia.QtDev-i686-w64-Npackd-Release -v " + 
-				qtVersion);
-        execSafe("\"" + npackdcl + 
-                "\" add -p z-dev-i686-w64_sjlj_posix_4.9.2-static -v 1.2.11 --file=C:\\projects\\z-dev-i686-w64_sjlj_posix_4.9.2-static");
+        execSafe("\"" + npackdcl + "\" add -p " + qtp[0] + " -v " + qtp[1]);
+        execSafe("\"" + npackdcl + "\" add -p " + zp[0] + " -v " + zp[1] + 
+				" --file=C:\\projects\\z-dev");
         var libz = getPath(npackdcl, "z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11");
 					
         execSafe("set path=" + mingw + 
