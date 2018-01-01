@@ -34,8 +34,10 @@ environment:
 #    version: 0.7.3
   - package: quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static
     version: 0.7.3
-  - package: quazip-dev-x86_64-w64_seh_posix_4.9.2-qt_5.5-static
-    version: 0.7.1
+# obsolete  - package: quazip-dev-x86_64-w64_seh_posix_4.9.2-qt_5.5-static
+#    version: 0.7.1
+  - package: quazip-dev-x86_64-w64_seh_posix_7.2-qt_5.9.2-static
+    version: 0.7.3
 # obsolete  - package: z-dev-i686-w64_sjlj_posix_4.9.2-static
 #    version: 1.2.8
 # obsolete  - package: z-dev-i686-w64_sjlj_posix_4.9.2-static
