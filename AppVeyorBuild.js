@@ -218,6 +218,10 @@ function process() {
 		compilerPackage = "mingw-w64-x86_64-seh-posix";
         source = "net.zlib.ZLibSource";
 		mingwVersion = "4.9.2";
+	} else if (package_ === "z-dev-x86_64-w64_seh_posix_7.2-static") {
+		compilerPackage = "mingw-w64-x86_64-seh-posix";
+        source = "net.zlib.ZLibSource";
+		mingwVersion = "7.2";
 	} else if (package_ === "quazip-dev-x86_64-w64_seh_posix_4.9.2-qt_5.5-static") {
 		compilerPackage = "mingw-w64-x86_64-seh-posix";
         source = "net.sourceforge.quazip.QuaZIPSource";
