@@ -288,7 +288,10 @@ function process() {
                 "\\bin;" + perl + "\\perl\\bin;" + python;
 		
 		var configureOptions;
-		if (compareVersions(version, "5.8") >= 0) {
+		
+		if (compareVersions(version, "5.9") >= 0) {
+			configureOptions = "-opensource -confirm-license -release -static -optimize-size -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion  -style-windowsvista -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -no-freetype -no-harfbuzz -no-direct2d -no-opengl -sql-sqlite -no-openssl -make libs -gif";
+		} else if (compareVersions(version, "5.8") >= 0) {
 			configureOptions = "-opensource -confirm-license -release -static -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion -style-windowsxp -style-windowsvista -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -no-freetype -opengl desktop -sql-sqlite -no-openssl -make libs";
 		} else {
 			configureOptions = "-opensource -confirm-license -release -static -static-runtime -no-angle -no-dbus -nomake tools -nomake examples -nomake tests -no-compile-examples -no-incredibuild-xge -no-libproxy -no-qml-debug -no-style-fusion -qt-style-windowsvista -qt-style-windowsxp -platform win32-g++ -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -opengl desktop -qt-sql-sqlite -no-openssl -make libs";
