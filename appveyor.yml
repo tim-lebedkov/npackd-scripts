@@ -12,6 +12,8 @@ environment:
     version: 0.7.3
   - package: z-dev-i686-w64_sjlj_posix_7.2-static
     version: 1.2.11
+  - package: z-dev-i686-w64_dw2_posix_7.2-static
+    version: 1.2.11
   - package: z-dev-x86_64-w64_seh_posix_7.2-static
     version: 1.2.11
 init:

@@ -169,22 +169,7 @@ function process() {
 	var mingwp;
 	var zp;
 	var qtp;
-	if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
-        source = "net.sourceforge.quazip.QuaZIPSource";
-		mingwp = ["mingw-w64-i686-sjlj-posix", "4.9.2"];
-		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
-		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.5"];
-    } else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
-        source = "net.sourceforge.quazip.QuaZIPSource";
-        mingwp = ["mingw-w64-i686-sjlj-posix", "7.1"];
-		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
-		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.5"];
-	} else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static") {
-        source = "net.sourceforge.quazip.QuaZIPSource";
-        mingwp = ["mingw-w64-i686-sjlj-posix", "7.2"];
-		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
-		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.9.2"];
-	} else if (package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
+	if (package_ === "com.nokia.QtDev-x86_64-w64-Npackd-Release") {
         source = "com.nokia.QtSource";
 		if (compareVersions(version, "5.6") >= 0)
 			mingwp = ["mingw-w64-x86_64-seh-posix", "7.2"];
@@ -202,12 +187,30 @@ function process() {
 	} else if (package_ === "z-dev-i686-w64_sjlj_posix_7.2-static") {
         source = "net.zlib.ZLibSource";
 		mingwp = ["mingw-w64-i686-sjlj-posix", "7.2"];
+	} else if (package_ === "z-dev-i686-w64_dw2_posix_7.2-static") {
+        source = "net.zlib.ZLibSource";
+		mingwp = ["mingw-w64-i686-dw2-posix", "7.2"];
 	} else if (package_ === "z-dev-x86_64-w64_seh_posix_4.9.2-static") {
         source = "net.zlib.ZLibSource";
 		mingwp = ["mingw-w64-x86_64-seh-posix", "4.9.2"];
 	} else if (package_ === "z-dev-x86_64-w64_seh_posix_7.2-static") {
         source = "net.zlib.ZLibSource";
 		mingwp = ["mingw-w64-x86_64-seh-posix", "7.2"];
+	} else if (package_ === "quazip-dev-i686-w64_sjlj_posix_4.9.2-qt_5.5-static") {
+        source = "net.sourceforge.quazip.QuaZIPSource";
+		mingwp = ["mingw-w64-i686-sjlj-posix", "4.9.2"];
+		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
+		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.5"];
+    } else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.1-qt_5.5-static") {
+        source = "net.sourceforge.quazip.QuaZIPSource";
+        mingwp = ["mingw-w64-i686-sjlj-posix", "7.1"];
+		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
+		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.5"];
+	} else if (package_ === "quazip-dev-i686-w64_sjlj_posix_7.2-qt_5.9.2-static") {
+        source = "net.sourceforge.quazip.QuaZIPSource";
+        mingwp = ["mingw-w64-i686-sjlj-posix", "7.2"];
+		zp = ["z-dev-i686-w64_sjlj_posix_4.9.2-static", "1.2.11"];
+		qtp = ["com.nokia.QtDev-i686-w64-Npackd-Release", "5.9.2"];
 	} else if (package_ === "quazip-dev-x86_64-w64_seh_posix_4.9.2-qt_5.5-static") {
         source = "net.sourceforge.quazip.QuaZIPSource";
 		mingwp = ["mingw-w64-x86_64-seh-posix", "4.9.2"];
